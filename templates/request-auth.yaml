@@ -1,0 +1,15 @@
+{{- if .Values.authenMode }}
+apiVersion: security.istio.io/v1
+kind: RequestAuthentication
+metadata:
+  name: {{ .Values.endpointName }}-request-authentication
+  namespace: {{ .Values.endpointName }}
+spec:
+  selector:
+    matchLabels:
+      endpoint: {{ .Values.endpointName }}
+  jwtRules:
+    - issuer: endpoint-hub.fke.fptcloud.com
+      jwksUri: >-
+        https://raw.githubusercontent.com/thien-lm/datn-fe/refs/heads/main/pubkey.json
+{{- end }}

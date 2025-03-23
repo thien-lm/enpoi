@@ -1,0 +1,15 @@
+{{- if .Values.traffic }}
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: {{ .Values.endpointName }}
+  namespace: {{ .Values.endpointName }}
+spec:
+  host: {{ .Values.endpointName }}.{{ .Values.endpointName }}.svc.cluster.local
+  subsets:
+  {{- range .Values.traffic }}
+  - name: {{ .deploymentName }}
+    labels:
+      app: {{ .deploymentName }}
+  {{- end }}
+{{- end }}

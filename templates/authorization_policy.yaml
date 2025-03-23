@@ -1,0 +1,28 @@
+{{- if or .Values.allowedIPs .Values.authenMode }}
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: {{ .Values.endpointName }}
+  namespace: {{ .Values.endpointName }}
+spec:
+  selector:
+    matchLabels:
+      endpoint: {{ .Values.endpointName }}
+  action: ALLOW
+  rules:
+  - from:
+    {{- if .Values.authenMode }}
+    - source:
+        requestPrincipals: ["<issuer>/<subject>"]
+    when:
+    - key: request.auth.claims[endpoint]
+      values: [{{ .Values.endpointName | quote }}]
+    {{- end }}
+    {{- if .Values.allowedIPs }}
+    - source:
+        ipBlocks: 
+        {{- range .Values.allowedIPs }}
+        - {{ . }}
+        {{- end }}
+    {{- end }}
+{{- end }}

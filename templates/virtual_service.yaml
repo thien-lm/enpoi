@@ -1,0 +1,33 @@
+{{- if .Values.traffic }}
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ .Values.endpointName }}
+  namespace: {{ .Values.endpointName }}
+spec:
+  hosts:
+  {{- if .Values.domainName }}
+  - {{ .Values.domainName }}
+  {{- else }}
+  - "*"
+  {{- end }}
+  gateways:
+  - {{ .Values.endpointName }}
+  http:
+  - route:
+    {{- range .Values.traffic }}
+    - destination:
+        host: {{ $.Values.endpointName }}.{{ $.Values.endpointName }}.svc.cluster.local
+        port:
+          number: {{ $.Values.port }}
+        subset: {{ .deploymentName }}
+      weight: {{ .weight }}
+    {{- end }}
+    {{- if .Values.pathBaseRoutingName }}
+    match:
+      - uri:
+          prefix: {{ .Values.pathBaseRoutingName }}
+    rewrite:
+      uri: /
+    {{- end }}
+{{- end }}
