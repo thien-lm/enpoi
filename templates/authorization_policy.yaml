@@ -1,4 +1,4 @@
-{{- if or .Values.allowedIPs .Values.authenMode }}
+{{- if and (eq (.Values.authenMode | default "") "JWT") (empty (.Values.allowedIPs | default (list))) }}
 apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
