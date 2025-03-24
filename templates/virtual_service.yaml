@@ -26,7 +26,7 @@ spec:
     {{- if .Values.pathBaseRoutingName }}
     match:
       - uri:
-          prefix: {{ .Values.pathBaseRoutingName }}
+          prefix: /{{ .Values.pathBaseRoutingName }}/
     rewrite:
       uri: /
     {{- end }}
