@@ -1,4 +1,5 @@
 endpointName: "test-endpoint-3"
+clusterName: "5j2jgmm5"
 port: 8000
 deployments: []
 traffic: 
