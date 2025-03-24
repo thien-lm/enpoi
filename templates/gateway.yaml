@@ -17,7 +17,7 @@ spec:
     {{- else }}
     - "*"
     {{- end }}
-  {{- if and .Values.tlsCert (ne .Values.tlsCert "") .Values.tlsKey (ne .Values.tlsKey "") }}
+  {{- if and .Values.tlsCert .Values.tlsKey }}
   - port:
       number: 443
       name: https
