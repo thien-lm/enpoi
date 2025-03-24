@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Values.endpointName }}
 spec:
   selector:
-    istio: istio-ingress
+    istio: istio-{{ .Values.clusterName }}
   servers:
   - port:
       number: 80
