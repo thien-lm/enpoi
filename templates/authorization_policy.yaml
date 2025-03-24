@@ -1,4 +1,4 @@
-{{- if and .Values.authenMode .Values.allowedIPs }}
+{{- if or .Values.authenMode .Values.allowedIPs }}
 apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
