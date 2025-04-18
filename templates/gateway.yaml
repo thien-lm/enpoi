@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Values.endpointName }}
 spec:
   selector:
-    istio: gateway-{{ .Values.clusterName }}
+    istio: gateway-{{ .Values.clusterID }}
   servers:
   - port:
       number: 80

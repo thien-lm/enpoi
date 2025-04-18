@@ -1,12 +1,14 @@
-endpointName: "test-endpoint-3"
-clusterName: "5j2jgmm5"
+endpointName: "llm-saola2m"
+clusterID: "5j2jgmm5"
 port: 8000
-deployments: []
-traffic: []
-mirrorTraffic: {}
+# deployments: []
+traffic: 
+  - deploymentName: llm-saola2m-v1
+    weight: 100
+# mirrorTraffic: {}
 tlsCert: ""
 tlsKey: ""
-pathBaseRoutingName: ""
-domainName: "tokuda.com"
-authenMode: null 
+pathBaseRoutingName: "llm-saola2m"
+domainName: ""
+# authenMode: "" 
 allowedIPs: []
